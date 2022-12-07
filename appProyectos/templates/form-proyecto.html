@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+{% block content %} 
+    {% include 'siderbar.html' %} 
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Form Elements</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">Forms</li>
+              <li class="breadcrumb-item active">Elements</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+    
+        <section class="section">
+          <div class="row">
+            <div class="col-lg-12">
+    
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Registrar Proyecto</h5>
+    
+                  <!-- General Form Elements -->
+                  <form>
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="titulo" class="col-sm-2 col-form-label">{{ form.titulo.label }}</label>
+                      <div class="col-sm-10">
+                        {{ form.titulo }}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="tags" class="col-sm-2 col-form-label">{{ form.tags.label }}</label>
+                      <div class="col-sm-10">
+                        {{ form.tags }}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="descripcion" class="col-sm-2 col-form-label">{{ form.descripcion.label }}</label>
+                        <div class="col-sm-10">
+                            {{ form.descripcion }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="foto" class="col-sm-2 col-form-label">{{ form.foto.label }}</label>
+                      <div class="col-sm-10">
+                        {{ form.foto }}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="git" class="col-sm-2 col-form-label">{{ form.urlGit.label }}</label>
+                      <div class="col-sm-10">
+                        {{ form.urlGit }}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-10 text-center">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                      </div>
+                    </div>
+    
+                  </form>
+                  <!-- End General Form Elements -->
+    
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </section>
+    
+      </main><!-- End #main -->
+{% endblock content %}
