@@ -1,4 +1,7 @@
 {% extends 'proyecto/base.html' %} 
+{% block title %}
+Project - PortafolioAdmin 
+{% endblock title %}
 {% block content %} 
     {% include 'proyecto/siderbar.html' %} 
     <main id="main" class="main">
@@ -36,7 +39,11 @@
                       {% endfor %}
                     </ul>
                     {% if form.non_field_errors %}
-                      {{ form.non_field_errors }}
+                    <ul>
+                      {% for error in form.non_field_errors %}
+                      <p> <i class="bi bi-x-circle-fill"></i> {{ error }} </p>
+                      {% endfor %}
+                    </ul>
                     {% endif %}
                   </div>
                   {% endif %}
@@ -63,11 +70,31 @@
                             {{ form.descripcion }}
                         </div>
                     </div>
-                    <div class="row mb-3">
-                      <label for="foto" class="col-sm-2 col-form-label">{{ form.foto.label }}</label>
-                      <div class="col-sm-10">
-                        {{ form.foto }}
+                    <div class="row mb-3 ">
+                      <label for="foto" class="col-sm-2 col-form-label">{{ form.foto_url.label }}</label>
+                      <div class="w-50">
+                        <div class="form-check form-check-inline  mb-0">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="urlImg" value="option1">
+                          <label class="form-check-label" for="inlineRadio1">Subir URL de una imagen</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="realImg" value="option2">
+                          <label class="form-check-label" for="inlineRadio2">Cargar una imagen</label>
+                        </div>
                       </div>
+                    </div>
+                    <div class="row mb-3" style="display: none;" id="inputUrlImg">
+                      <label for="url_img" class="col-sm-2 col-form-label">Url Foto</label>
+                      <div class="col-sm-10">
+                        {{ form.foto_url }}
+                      </div>
+                    </div>
+                    <div class="row mb-3" style="display: none;" id="inputFileImg">
+                      <label for="upload_foto" class="col-sm-2 col-form-label">Upload Foto</label>
+                      <div class="col-sm-10">
+                        {{ form.foto_img }}
+                      </div>
+                      
                     </div>
                     <div class="row mb-3">
                       <label for="git" class="col-sm-2 col-form-label">{{ form.git.label }}</label>
@@ -92,4 +119,21 @@
         </section>
     
       </main><!-- End #main -->
+<script>
+  
+  document.getElementById("urlImg").onclick = function(){//do something
+    var url = document.getElementById('inputUrlImg');
+    var file = document.getElementById('inputFileImg');
+    url.style.removeProperty("display");
+    file.style.display="none";
+    document.getElementById("id_foto_img").value = "";
+  }
+  document.getElementById("realImg").onclick = function(){//do something
+    var url = document.getElementById('inputUrlImg');
+    var file = document.getElementById('inputFileImg');
+    file.style.removeProperty("display");
+    url.style.display="none"
+    document.getElementById("id_foto_url").value = "";
+  }
+</script>
 {% endblock content %}

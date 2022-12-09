@@ -1,6 +1,7 @@
 from django.shortcuts import  redirect, render
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import CreateView,DetailView, UpdateView,DeleteView
 from django.contrib.auth.decorators import login_required
 from appProyectos.forms import  ProyectoForm
 from django.contrib import messages
@@ -18,7 +19,7 @@ def index(request):
     return render(request,"proyecto/index.html",context)
     
 
-class ProyectoCreate(SuccessMessageMixin,CreateView):
+class ProyectoCreate(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     form_class=ProyectoForm
     template_name = 'proyecto/form-proyecto.html'
     success_url = '/'
@@ -27,3 +28,36 @@ class ProyectoCreate(SuccessMessageMixin,CreateView):
     def form_valid(self,form):
         form.instance.autor=self.request.user
         return super().form_valid(form)
+
+class ProyectoUpdate(LoginRequiredMixin,SuccessMessageMixin,UserPassesTestMixin,UpdateView):
+    form_class=ProyectoForm
+    model=Proyecto
+    template_name = 'proyecto/form-proyecto.html'
+    success_message = "Se ha actualizado su proyecto correctamente"
+
+    def form_valid(self,form):
+        form.instance.autor=self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        proyecto=self.get_object()
+        if self.request.user==proyecto.autor:
+            return True
+        return False
+
+class ProyectoDetailView(LoginRequiredMixin,DetailView):
+    model=Proyecto
+    template_name='proyecto/ver-proyecto.html'
+    context_object_name="proyecto"
+
+class ProyectoDeleteView(UserPassesTestMixin,LoginRequiredMixin,DeleteView):
+    model=Proyecto
+    template_name='proyecto/delete-proyecto.html'
+    context_object_name="proyecto"
+    success_url="/"
+    
+    def test_func(self):
+        proyecto=self.get_object()
+        if self.request.user==proyecto.autor:
+            return True
+        return False
