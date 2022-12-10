@@ -11,7 +11,7 @@ class Proyecto(models.Model):
     # TODO: Define fields here
     title = models.CharField(max_length=100)
     descripcion = models.TextField()
-    foto_img = models.ImageField(default="default.jpg",upload_to="proyect_file",blank=True,null=True)
+    foto_img = models.ImageField(upload_to="proyect_file",blank=True,null=True)
     foto_url = models.CharField(max_length=500,blank=True)
     git = models.CharField(max_length=500)
     tags = models.CharField(max_length=500)
@@ -33,8 +33,9 @@ class Proyecto(models.Model):
 
     def save(self):
         super().save()
-        foto_img = Image.open(self.foto_img.path)
-        if foto_img.height > 300 or foto_img.width > 300:
-            output_size = (300, 300)
-            foto_img.thumbnail(output_size)
-            foto_img.save(self.foto_img.path)
+        if self.foto_img:
+            foto_img = Image.open(self.foto_img.path)
+            if foto_img.height > 300 or foto_img.width > 300:
+                output_size = (300, 300)
+                foto_img.thumbnail(output_size)
+                foto_img.save(self.foto_img.path)

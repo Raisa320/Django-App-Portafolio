@@ -25,6 +25,11 @@ class ProyectoCreate(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     success_url = '/'
     success_message = "Se ha registrado tu proyecto correctamente"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['name'] = "Registrar"
+        return context
+    
     def form_valid(self,form):
         form.instance.autor=self.request.user
         return super().form_valid(form)
@@ -35,8 +40,17 @@ class ProyectoUpdate(LoginRequiredMixin,SuccessMessageMixin,UserPassesTestMixin,
     template_name = 'proyecto/form-proyecto.html'
     success_message = "Se ha actualizado su proyecto correctamente"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['name'] = "Actualizar"
+        if context.get("proyecto").foto_img:
+            context["url_img"]=context.get("proyecto").foto_img.url
+        return context
+
     def form_valid(self,form):
         form.instance.autor=self.request.user
+        if form.instance.foto_url:
+            form.instance.foto_img=None
         return super().form_valid(form)
 
     def test_func(self):

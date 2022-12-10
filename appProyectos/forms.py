@@ -26,7 +26,7 @@ class ProyectoForm(forms.ModelForm):
        cleaned_data = self.cleaned_data
        uploadedfile = cleaned_data.get("foto_img")
        url_address = cleaned_data.get("foto_url")
+       
        if not uploadedfile and not url_address :
            raise forms.ValidationError("El campo de foto es obligatorio, ingresa una URL válida o carga una foto")
-       
        return cleaned_data 

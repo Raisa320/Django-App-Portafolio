@@ -37,7 +37,7 @@ Detail Project - PortafolioAdmin
               <div class="col-md-4">
                 {% if proyecto.foto_url %}
                 <img src="{{ proyecto.foto_url }}" class="img-fluid rounded-start" style="height: 100%; width: 100%;" alt="[URL inválida]">
-                {% else %}
+                {% elif proyecto.foto_img %}
                 <img src="{{ proyecto.foto_img.url }}" class="img-fluid rounded-start" style="height: 100%; width: 100%;" alt="[URL inválida]">
                 {% endif %}
               </div>
@@ -50,8 +50,12 @@ Detail Project - PortafolioAdmin
                   <h5 class="card-text"><small class="fw-semibold" style="color: #012970;">Repositorio Git</small></h5>
                   <p><a href="{{ proyecto.git }}" target="_blank" class="btn btn-success"><i class="bi bi-star me-1"></i> Ir al repositorio de Git registrado</a></p>
                   <hr>
-                  <p><a href=""  class="btn btn-warning"><i class="bi bi-pencil-fill"></i> Editar</a></p>
-                  
+                  {% if proyecto.autor == user %}
+                    <div class="row">
+                      <a href="{% url 'proyecto-update' proyecto.id %}"  class="w-25 btn btn-warning"><i class="bi bi-pencil-fill"></i> Editar</a>
+                      <a href="{% url 'proyecto-delete' proyecto.id %}"  class="ms-3 w-25 btn btn-danger"><i class="bi bi-x-circle-fill"></i> Eliminar</a>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
