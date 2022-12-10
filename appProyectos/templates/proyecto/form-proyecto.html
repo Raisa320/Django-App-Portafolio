@@ -138,7 +138,8 @@ Project - PortafolioAdmin
   if ($urlValor.value!=""){
     document.getElementById("urlImg").checked = true;
     clickUrl()
-  }else if (archivoF!="None" ||  archivoF!=""){
+  }else if (archivoF!="None" &&  archivoF!=""  ){
+    console.log(archivoF)
     document.getElementById("realImg").checked = true;
     clickImg()
   }

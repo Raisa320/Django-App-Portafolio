@@ -13,7 +13,8 @@ def index(request):
     current_user=request.user
     context={
         "proyectos": current_user.proyecto_set.all(),
-        "cantidad":current_user.proyecto_set.count()
+        "cantidad":current_user.proyecto_set.count(),
+        "dashboard":"dashboard"
     }
 
     return render(request,"proyecto/index.html",context)
@@ -28,6 +29,7 @@ class ProyectoCreate(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['name'] = "Registrar"
+        context['registrar']="registrar"
         return context
     
     def form_valid(self,form):
