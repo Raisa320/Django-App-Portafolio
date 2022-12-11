@@ -65,6 +65,15 @@ Run migrations with the following commands
 ```bash
   python manage.py migrate
 ```
+## Use ngrok
+Si se prueba la aplicación en ngrok cambiar la variable ALLOWED_HOSTS en  djangoPorfolio/settings.py, reemplazar el primer elemento con el endpoint que sale en tu app
+```bash
+  ALLOWED_HOSTS = ['fc1d-181-67-205-182.ngrok.io', 'localhost','127.0.0.1']
+```
+También agregar con la url que la aplicación ngrok te da
+```bash
+  CSRF_TRUSTED_ORIGINS = ['https://0517-181-67-205-182.sa.ngrok.io']
+```
 ## Run Locally
 
 Start the server
