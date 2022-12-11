@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.shortcuts import  render
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
@@ -13,6 +14,7 @@ def index(request):
     context={
         "proyectos": current_user.proyecto_set.all(),
         "cantidad":current_user.proyecto_set.count(),
+        "visitantes":current_user.visitanteportafolio_set.count(),
         "dashboard":"dashboard"
     }
 
@@ -76,3 +78,4 @@ class ProyectoDeleteView(UserPassesTestMixin,LoginRequiredMixin,DeleteView):
         if self.request.user==proyecto.autor:
             return True
         return False
+

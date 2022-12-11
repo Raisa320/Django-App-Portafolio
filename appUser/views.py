@@ -4,6 +4,9 @@ from django.contrib import messages
 from appUser.forms import LoginForm,UserRegisterForm,UserUpdateForm,ProfileUpdateForm
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
+from ipware import get_client_ip
+
+from appUser.models import VisitantePortafolio
 # Create your views here.
 def registerPage(request):
     if request.method=='POST':
@@ -33,9 +36,15 @@ class UserDetailsTemplate(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if context.get("usuario"):
-            context["proyectos"]=context.get("usuario").proyecto_set.all()
-            context["servicios"]=context.get("usuario").profile.servicios.split(",")
+            ip,is_routable=get_client_ip(self.request)
+            usuario=context.get("usuario")
+            if usuario.visitanteportafolio_set.filter(ipVisitante=ip).first() is None:
+                ipBd=VisitantePortafolio(ipVisitante=ip,protafolioVisitado=usuario)
+                ipBd.save()  
+            context["proyectos"]=usuario.proyecto_set.all()
+            context["servicios"]=usuario.profile.servicios.split(",")
         return context
+
 def indexPortafolio(request):
     current_user=request.user
     context={

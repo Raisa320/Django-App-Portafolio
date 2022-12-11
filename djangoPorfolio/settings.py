@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'appUser.middleware.ip_register',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'djangoPorfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,5 +134,7 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 
 LOGIN_REDIRECT_URL='home-page'
 LOGIN_URL='login-page'
+#LOGOUT_REDIRECT_URL='login-page'
 
-
+ALLOWED_HOSTS = ['fc1d-181-67-205-182.ngrok.io', 'localhost','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://0517-181-67-205-182.sa.ngrok.io']

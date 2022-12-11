@@ -35,3 +35,37 @@ class Profile(models.Model):
                 output_size = (300, 300)
                 img.thumbnail(output_size)
                 img.save(self.image.path)
+
+
+
+class VisitanteGeneral(models.Model):
+    """Model definition for Visitante."""
+    # TODO: Define fields here
+    ipVisitante= models.GenericIPAddressField()
+    #protafolioVisitado = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        """Meta definition for Visitante."""
+
+        verbose_name = 'Visitante'
+        verbose_name_plural = 'Visitantes'
+
+    def __str__(self):
+        """Unicode representation of Visitante."""
+        return self.ipVisitante
+
+class VisitantePortafolio(models.Model):
+    """Model definition for Visitante."""
+    # TODO: Define fields here
+    ipVisitante= models.GenericIPAddressField()
+    protafolioVisitado = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        """Meta definition for Visitante."""
+
+        verbose_name = 'Visitante'
+        verbose_name_plural = 'Visitantes'
+
+    def __str__(self):
+        """Unicode representation of Visitante."""
+        return self.ipVisitante
