@@ -137,4 +137,4 @@ LOGIN_URL='login-page'
 #LOGOUT_REDIRECT_URL='login-page'
 
 ALLOWED_HOSTS = ['fc1d-181-67-205-182.ngrok.io', 'localhost','127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://0517-181-67-205-182.sa.ngrok.io']
+#CSRF_TRUSTED_ORIGINS = ['https://0517-181-67-205-182.sa.ngrok.io']
