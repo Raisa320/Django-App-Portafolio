@@ -1,10 +1,9 @@
-from django.shortcuts import  redirect, render
+from django.shortcuts import  render
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import CreateView,DetailView, UpdateView,DeleteView
 from django.contrib.auth.decorators import login_required
 from appProyectos.forms import  ProyectoForm
-from django.contrib import messages
 
 from appProyectos.models import Proyecto
 # Create your views here.
@@ -18,7 +17,7 @@ def index(request):
     }
 
     return render(request,"proyecto/index.html",context)
-    
+
 
 class ProyectoCreate(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     form_class=ProyectoForm
@@ -61,9 +60,9 @@ class ProyectoUpdate(LoginRequiredMixin,SuccessMessageMixin,UserPassesTestMixin,
             return True
         return False
 
-class ProyectoDetailView(LoginRequiredMixin,DetailView):
+class ProyectoDetailView(DetailView):
     model=Proyecto
-    template_name='proyecto/ver-proyecto.html'
+    #template_name='proyecto/ver-proyecto.html'
     context_object_name="proyecto"
 
 class ProyectoDeleteView(UserPassesTestMixin,LoginRequiredMixin,DeleteView):

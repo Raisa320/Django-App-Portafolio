@@ -25,7 +25,7 @@
         </a>
       </li><!-- End Profile Page Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url 'proyecto-register' %}" id="{{ portafolio }}">
+        <a class="nav-link collapsed" href="{% url 'portafolio' user.id %}" target="_blank">
           <i class="bi bi-globe"></i>
           <span>Ver Portafolio</span>
         </a>
@@ -33,7 +33,6 @@
     </ul>
   </aside><!-- End Sidebar-->
   <script>
-    console.log(document.getElementById("pepe"))
     if (document.getElementById("dashboard")!=null){
       document.getElementById("dashboard").classList.remove("collapsed")
     }
@@ -42,8 +41,5 @@
     }
     if (document.getElementById("registrar")!=null){
       document.getElementById("registrar").classList.remove("collapsed")
-    }
-    if (document.getElementById("portafolio")!=null){
-      document.getElementById("portafolio").classList.remove("collapsed")
     }
   </script>

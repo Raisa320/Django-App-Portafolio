@@ -2,7 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from appUser.forms import LoginForm,UserRegisterForm,UserUpdateForm,ProfileUpdateForm
-
+from django.views.generic import DetailView
+from django.contrib.auth.models import User
 # Create your views here.
 def registerPage(request):
     if request.method=='POST':
@@ -22,7 +23,29 @@ def loginPage(request):
     context={}
     context["form"]=LoginForm()
     return render(request,"user/login.html",context)
-    
+
+
+class UserDetailsTemplate(DetailView):
+    model=User
+    template_name='user/portafolio.html'
+    context_object_name="usuario"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if context.get("usuario"):
+            context["proyectos"]=context.get("usuario").proyecto_set.all()
+            context["servicios"]=context.get("usuario").profile.servicios.split(",")
+        return context
+def indexPortafolio(request):
+    current_user=request.user
+    context={
+        "proyectos": current_user.proyecto_set.all(),
+        "cantidad":current_user.proyecto_set.count(),
+    }
+
+    return render(request,"user/portafolio.html",context) 
+
+
 @login_required
 def profile(request):
     if request.method=='POST':
